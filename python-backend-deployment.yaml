@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-backend-service
+  labels:
+    app: python-backend-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-backend-service
+  template:
+    metadata:
+      labels:
+        app: python-backend-service
+    spec:
+      containers:
+      - name: python-backend-service
+        image: techserve4u/python-two-tier-backend:0.0.1
+        imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-backend-service
+  labels:
+    run: python-backend-service
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    app: python-backend-service
