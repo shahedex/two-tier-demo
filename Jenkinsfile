@@ -26,9 +26,9 @@ pipeline {
             steps {
               echo 'Deploying to EC2...'
                 script {
-                    withCredentials([string(credentialsId: 'docker-server-pass', variable: 'SERVER_SECRET')]) {
+                    withCredentials([string(credentialsId: 'docker-server-pass', variable: 'SSHPASS')]) {
                         sh'''
-                              sshpass -p hello123 ssh -o StrictHostKeyChecking=no ubuntu@65.2.6.22 "docker stop cicd-test && docker rm cicd-test && docker rmi shahedmehbub/jenkins-pipeline-backend:latest && docker run -d --name cicd-test -p 5000:5000 shahedmehbub/jenkins-pipeline-backend:latest"
+                              sshpass -e ssh -o StrictHostKeyChecking=no ubuntu@65.2.6.22 "docker stop cicd-test && docker rm cicd-test && docker rmi shahedmehbub/jenkins-pipeline-backend:latest && docker run -d --name cicd-test -p 5000:5000 shahedmehbub/jenkins-pipeline-backend:latest"
                         '''
                     }
                 }
