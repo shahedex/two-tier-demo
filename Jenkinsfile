@@ -5,11 +5,10 @@ pipeline {
         stage('docker-build') {
             steps {
                 echo 'building docker image....'
-                sh'''
-                cd kube-backend
-                '''
-                script {
-                    docker.build("jenkins-pipeline-backend")
+                dir('kube-backend') {
+                    script {
+                        docker.build("jenkins-pipeline-backend")
+                    }
                 }
             }
         }
