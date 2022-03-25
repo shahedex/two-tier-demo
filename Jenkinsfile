@@ -2,14 +2,12 @@ pipeline {
     agent any
 
     stages {
-      stage('pre-build') {
-        steps {
-          echo 'this is the pre-build stage...' 
-        }
-      }
         stage('build') {
             steps {
                 echo 'building docker image....'
+                sh'''
+                docker build -t pipeline-backend .
+                '''
             }
         }
         stage('test') {
