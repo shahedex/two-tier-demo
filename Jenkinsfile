@@ -6,7 +6,9 @@ pipeline {
             steps {
                 echo 'building docker image....'
                 sh'''
+                cd kube-backend
                 docker build -t pipeline-backend .
+                docker images
                 '''
             }
         }
